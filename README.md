@@ -1,6 +1,10 @@
+HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+...
+
+## feminine-store1
 
 ## Available Scripts
 
@@ -69,3 +73,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 # feminine-store1
+=======
+# feminine-store1
+>>>>>>> 3325f637517c989d019de050703bf799478ea4f4
