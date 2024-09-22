@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
-import { Box, InputBase, IconButton, List, ListItem, ListItemText } from '@mui/material';
+import React, { useState, useContext } from 'react';
+import { Box, InputBase, IconButton, List, ListItem, ListItemText, useTheme } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { ColorModeContext } from '../../theme'; // تأكد من استيراد سياق تبديل الوضع الليلي إذا كان لديك
 
 const SidebarSearch = ({ onFilterChange }) => {
+  const theme = useTheme();
+  const colorMode = useContext(ColorModeContext); // استخدم السياق لتبديل الوضع الليلي
   const [searchTerm, setSearchTerm] = useState('');
   const [open, setOpen] = useState(false); // حالة لتتبع فتح/إغلاق القائمة
   const categories = ['T-shirts', 'Dresses', 'Pants', 'Bracelet', 'Pyjama', 'c-Beach', 'Bags'];
@@ -20,7 +23,7 @@ const SidebarSearch = ({ onFilterChange }) => {
     if (productsSection) {
       window.scrollTo({
         top: productsSection.offsetTop,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
 
@@ -38,28 +41,39 @@ const SidebarSearch = ({ onFilterChange }) => {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          border: '1px solid #ccc',
+          border: `1px solid ${theme.palette.divider}`,
           borderRadius: '8px',
           padding: '4px 8px',
-          backgroundColor: '#f5f5f5',
+          backgroundColor: theme.palette.mode === 'dark' ? '#424242' : '#f5f5f5', // لون الخلفية حسب وضعية الدارك مود
         }}
       >
         <InputBase
           placeholder="Search for product ..."
           value={searchTerm}
           onChange={handleSearch}
-          sx={{ flex: 1, padding: '5px 10px' }}
+          sx={{
+            flex: 1,
+            padding: '5px 10px',
+            color: theme.palette.text.primary, // النص يتغير بناءً على الثيم
+          }}
         />
-        <IconButton sx={{ p: '10px' }}>
+        <IconButton sx={{ p: '10px', color: theme.palette.text.primary }}>
           <SearchIcon />
         </IconButton>
       </Box>
 
       {open && searchTerm && (
-        <List sx={{ marginTop: '10px', backgroundColor: '#fff', borderRadius: '8px', boxShadow: '0px 2px 5px rgba(0,0,0,0.1)' }}>
+        <List
+          sx={{
+            marginTop: '10px',
+            backgroundColor: theme.palette.background.paper, // تغيير الخلفية للقائمة بناءً على الثيم
+            borderRadius: '8px',
+            boxShadow: '0px 2px 5px rgba(0,0,0,0.1)',
+          }}
+        >
           {filteredCategories.map((category, index) => (
             <ListItem button key={index} onClick={() => handleCategoryClick(category)}>
-              <ListItemText primary={category} />
+              <ListItemText primary={category} sx={{ color: theme.palette.text.primary }} /> {/* لون النص بناءً على الثيم */}
             </ListItem>
           ))}
         </List>

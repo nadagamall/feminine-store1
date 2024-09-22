@@ -29,6 +29,7 @@ const ImageSlider = () => {
         width: '100%',
         height: '400px',
         overflow: 'hidden',
+        display: { xs: 'none', sm: 'block' }, // إخفاء في الشاشات الصغيرة وعرضه في الشاشات الأكبر
       }}
     >
       <img

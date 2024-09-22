@@ -28,7 +28,7 @@ const Home = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' } }}>
       {/* تمرير handleFilterChange إلى SidebarSearch */}
       <SidebarSearch onFilterChange={handleFilterChange} />
       <Box
@@ -44,11 +44,9 @@ const Home = () => {
           <Box mb={4}>
             <ImageSlider
               sx={{ 
-                position: 'absolute', 
-                top: 0, 
-                left: 0, 
-                right: 0, 
-                height: '400px', 
+                position: 'relative', 
+                width: '100%', 
+                height: { xs: '200px', md: '400px' },
                 zIndex: 1,
               }}
             />
@@ -58,9 +56,9 @@ const Home = () => {
         <Complex mb={4} />
 
         <div>
-          <h1 className="text-3xl my-5">List Products</h1>
+          <h1 className="text-2xl sm:text-3xl my-5">List Products</h1>
         </div>
-        <div id="products-section" className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5">
+        <div id="products-section" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredProducts.map((product, key) => (
             <ProductCart key={key} data={product} />
           ))}

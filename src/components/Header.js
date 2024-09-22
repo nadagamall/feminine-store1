@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleStatusTab } from '../stores/Cart';
 import logo from '../assets/logo-1.png';
 import IconButton from '@mui/material/IconButton';
-import { Brightness4, Brightness7 } from '@mui/icons-material';
+import { Brightness4, Brightness7, Menu as MenuIcon } from '@mui/icons-material'; // إضافة أيقونة القائمة
 import { ColorModeContext } from '../theme';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -18,6 +18,7 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import Tooltip from '@mui/material/Tooltip';
 import Face4Icon from '@mui/icons-material/Face4';
+import Drawer from '@mui/material/Drawer'; // لاستخدام القائمة الجانبية
 
 const Header = () => {
   const [totalQuantity, setTotalQuantity] = useState(0);
@@ -43,16 +44,29 @@ const Header = () => {
     setAnchorEl(null);
   };
 
+  // لإدارة القائمة الجانبية
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const toggleDrawer = (open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setIsDrawerOpen(open);
+  };
+
   return (
-    <header className="w-full">
-      <div className="flex justify-between items-center w-full max-w-screen-xl mx-auto p-4">
-        {/* الشعار على اليسار */}
+    
+    <header className="">
+<div className={{}}>
         <div className="flex-shrink-0">
-          <img src={logo} alt="logo" className="w-30 h-20" />
+          <img
+            src={logo}
+            alt="logo"
+            className="w-20 h-14 md:w-30 md:h-20 border-radius-5 "
+          />
         </div>
 
-        {/* الروابط في المنتصف */}
-        <div className="flex-grow flex justify-center space-x-8">
+        {/* الروابط في المنتصف مخفية في الشاشات الصغيرة */}
+        <div className="hidden md:flex-grow md:flex justify-center space-x-8 mb-5 mt-[-50px] ">
           <Link to="/" className="font-semibold">
             Home
           </Link>
@@ -62,104 +76,157 @@ const Header = () => {
         </div>
 
         {/* الأيقونات على اليمين */}
-        <div className="flex items-center space-x-4">
-          <IconButton onClick={toggleColorMode} color="inherit">
-            {themeMode === 'dark' ? <Brightness7 /> : <Brightness4 />}
-          </IconButton>
+       <Box sx={{ position: 'absolute', top: 20, right: 7, p: 2 }}>
+  <div className="flex space-x-2">
+    <IconButton onClick={toggleColorMode} >
+      {themeMode === 'dark' ? <Brightness7 /> : <Brightness4 />}
+    </IconButton>
 
-          <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-            <Tooltip title="Account settings">
-              <IconButton
-                onClick={handleClick}
-                size="small"
-                sx={{ ml: 2 }}
-                aria-controls={open ? 'account-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-              >
-                <Avatar sx={{ width: 32, height: 32 }}>
-                  <Face4Icon />
-                </Avatar>
-              </IconButton>
-            </Tooltip>
-          </Box>
+    {/* حساب المستخدم */}
+    <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+      <Tooltip title="Account settings">
+        <IconButton
+          onClick={handleClick}
+          size="small"
+          sx={{ ml: 2 }}
+          aria-controls={open ? 'account-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+        >
+          <Avatar sx={{ width: 32, height: 32 }}>
+            <Face4Icon />
+          </Avatar>
+        </IconButton>
+      </Tooltip>
+    </Box>
 
-          <Menu
-            anchorEl={anchorEl}
-            id="account-menu"
-            open={open}
-            onClose={handleClose}
-            onClick={handleClose}
-            PaperProps={{
-              elevation: 0,
-              sx: {
-                overflow: 'visible',
-                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                mt: 1.5,
-                '& .MuiAvatar-root': {
-                  width: 32,
-                  height: 32,
-                  ml: -0.5,
-                  mr: 1,
-                },
-                '&::before': {
-                  content: '""',
-                  display: 'block',
-                  position: 'absolute',
-                  top: 0,
-                  right: 14,
-                  width: 10,
-                  height: 10,
-                  bgcolor: 'background.paper',
-                  transform: 'translateY(-50%) rotate(45deg)',
-                  zIndex: 0,
-                },
-              },
-            }}
-            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-          >
-            <MenuItem onClick={handleClose}>
-              <Avatar /> Profile
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <Avatar /> My account
-            </MenuItem>
-            <Divider />
-            <MenuItem onClick={handleClose}>
-              <ListItemIcon>
-                <PersonAdd fontSize="small" />
-              </ListItemIcon>
-              Add another account
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <ListItemIcon>
-                <Settings fontSize="small" />
-              </ListItemIcon>
-              Settings
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <ListItemIcon>
-                <Logout fontSize="small" />
-              </ListItemIcon>
-              Logout
-            </MenuItem>
-          </Menu>
+    {/* قائمة المستخدم */}
+    <Menu
+      anchorEl={anchorEl}
+      id="account-menu"
+      open={open}
+      onClose={handleClose}
+      onClick={handleClose}
+      PaperProps={{
+        elevation: 0,
+        sx: {
+          overflow: 'visible',
+          filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+          mt: 1.5,
+          '& .MuiAvatar-root': {
+            width: 32,
+            height: 32,
+            ml: -0.5,
+            mr: 1,
+          },
+          '&::before': {
+            content: '""',
+            display: 'block',
+            position: 'absolute',
+            top: 0,
+            right: 14,
+            width: 10,
+            height: 10,
+            bgcolor: 'background.paper',
+            transform: 'translateY(-50%) rotate(45deg)',
+            zIndex: 0,
+          },
+        },
+      }}
+      transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+      anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+    >
+      <MenuItem onClick={handleClose}>
+        <Avatar /> Profile
+      </MenuItem>
+      <MenuItem onClick={handleClose}>
+        <Avatar /> My account
+      </MenuItem>
+      <Divider />
+      <MenuItem onClick={handleClose}>
+        <ListItemIcon>
+          <PersonAdd fontSize="small" />
+        </ListItemIcon>
+        Add another account
+      </MenuItem>
+      <MenuItem onClick={handleClose}>
+        <ListItemIcon>
+          <Settings fontSize="small" />
+        </ListItemIcon>
+        Settings
+      </MenuItem>
+      <MenuItem onClick={handleClose}>
+        <ListItemIcon>
+          <Logout fontSize="small" />
+        </ListItemIcon>
+        Logout
+      </MenuItem>
+    </Menu>
 
-          <div
-            className="w-10 h-10 rounded-full bg-gray-100 flex justify-center items-center relative cursor-pointer"
-            onClick={handleOpenTabCart}
-          >
-            <img src={iconCart} alt="Cart" className="w-6" />
-            {totalQuantity > 0 && (
-              <span className="absolute top-2/3 right-1/2 bg-red-500 text-white text-sm w-5 h-5 rounded-full flex justify-center items-center">
-                {totalQuantity}
-              </span>
-            )}
+    {/* أيقونة العربة */}
+    <div
+  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-200 dark:bg-gray-600 flex justify-center items-center relative cursor-pointer"
+  onClick={handleOpenTabCart}
+    >
+      <img src={iconCart} alt="Cart" className="w-5 sm:w-6" />
+      {totalQuantity > 0 && (
+        <span className="absolute top-2/3 right-1/2 bg-red-500 text-white text-xs sm:text-sm w-4 h-4 sm:w-5 sm:h-5 rounded-full flex justify-center items-center">
+          {totalQuantity}
+        </span>
+      )}
+    </div>
+  </div>
+</Box>
+
+          {/* أيقونة القائمة الجانبية للشاشات الصغيرة */}
+          <div className="md:hidden">
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="end"
+              onClick={toggleDrawer(true)}
+            >
+              <MenuIcon />
+            </IconButton>
           </div>
         </div>
-      </div>
+
+
+      {/* القائمة الجانبية للشاشات الصغيرة */}
+      <Drawer
+        anchor="right"
+        open={isDrawerOpen}
+        onClose={toggleDrawer(false)}
+        PaperProps={{
+          sx: {
+            bgcolor: themeMode === 'dark' ? '#333' : '#fff',  // تعيين الخلفية بناءً على الوضع
+            color: themeMode === 'dark' ? '#fff' : '#000',   // تعيين لون النص
+          },
+        }}
+      >
+        <div
+          className="w-64"
+          role="presentation"
+          onClick={toggleDrawer(false)}
+          onKeyDown={toggleDrawer(false)}
+        >
+          <div className={`w-64 ${themeMode === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
+          <div className="flex flex-col p-4 space-y-4">
+            <Link to="/" className="font-semibold">
+              Home
+            </Link>
+            <Link to="/new-arrivals" className="font-semibold">
+              New Arrivals
+            </Link>
+          </div>
+          </div>
+          
+        </div>
+          
+      </Drawer>
+    
     </header>
+
   );
 }
 

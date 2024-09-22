@@ -1,13 +1,14 @@
-import { createContext, useState, useMemo } from "react";
+import { createContext, useState, useMemo, useEffect } from "react";
 import { createTheme } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
 
+// تصميم الوضعين النهاري والليلي
 export const getDesignTokens = (mode) => ({
   palette: {
     mode,
     ...(mode === "light"
       ? {
-          // palette values for light mode
+          // ألوان للوضع النهاري
           mycolor: {
             mainn: "#F6F9FC",
           },
@@ -25,7 +26,7 @@ export const getDesignTokens = (mode) => ({
           },
         }
       : {
-          // palette values for dark mode
+          // ألوان للوضع الليلي
           mycolor: {
             mainn: "#252b32",
           },
@@ -39,22 +40,29 @@ export const getDesignTokens = (mode) => ({
             main: grey[800],
           },
           text: {
-            primary: "#ffffff", // لون النص في الوضع الليلي
+            primary: "#C0C0C0", // لون النص في الوضع الليلي
           },
         }),
   },
 });
 
-// context for color mode
+// السياق الخاص بتغيير الوضع
 export const ColorModeContext = createContext({
   toggleColorMode: () => {},
 });
 
+// الخطاف لإدارة الوضع
 export const useMode = () => {
-  const [mode, setMode] = useState(
+  const [mode, setMode] = useState(() =>
     localStorage.getItem("mode") ? localStorage.getItem("mode") : "light"
   );
 
+  // عند تغيير الوضع، نقوم بتخزينه في localStorage
+  useEffect(() => {
+    localStorage.setItem("mode", mode);
+  }, [mode]);
+
+  // التبديل بين الوضعين
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () =>
@@ -63,6 +71,7 @@ export const useMode = () => {
     []
   );
 
+  // إنشاء السمة بناءً على الوضع الحالي
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
   return [theme, colorMode];
 };

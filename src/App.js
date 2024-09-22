@@ -1,8 +1,7 @@
 import React from 'react';
 import './App.css';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { useMode, ColorModeContext } from './theme';  
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import { useMode, ColorModeContext } from './theme';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Details from './pages/Details';
@@ -13,30 +12,25 @@ import NewArrival from './components/NewArrival';
 
 function App() {
   const [theme, colorMode] = useMode();
-  React.useEffect(() => {
-    localStorage.setItem('mode', theme.palette.mode);
-  }, [theme.palette.mode]);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <CssBaseline /> 
+        <CssBaseline />
         <BrowserRouter>
+          <ScrollToTop /> {/* وضع ScrollToTop هنا لضمان عمله عند تغيير الصفحات */}
           <Routes>
             <Route path='/' element={<Layout />}>
               <Route index element={<Home />} />
-              <Route path='/:slug' element={<Details />} /> 
+              <Route path='/:slug' element={<Details />} />
               <Route path='/test' element={<Page1 />} />
               <Route path="/products/:category" element={<NewArrival />} />
-
             </Route>
           </Routes>
         </BrowserRouter>
-<ScrollToTop />
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
 }
-
 
 export default App;

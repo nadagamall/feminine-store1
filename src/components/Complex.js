@@ -1,7 +1,5 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import ButtonBase from '@mui/material/ButtonBase';
+import { Box, Typography, ButtonBase } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom'; // استيراد useNavigate
 import shi from '../assets/SHIRTS11.jpg';
@@ -15,16 +13,19 @@ const Complex = () => {
       url: shi,
       title: 'SHIRTS',
       width: '40%',
+      category: 'shirts'
     },
     {
       url: ur,
       title: 'DRESSES',
       width: '30%',
+      category: 'dresses'
     },
     {
       url: pa,
       title: 'Bags',
       width: '30%',
+      category: 'bags'
     },
   ];
 
@@ -34,6 +35,7 @@ const Complex = () => {
     [theme.breakpoints.down('sm')]: {
       width: '100% !important',
       height: 100,
+      display: 'none', // إخفاء الصورة في وضع الموبايل
     },
     '&:hover, &.Mui-focusVisible': {
       zIndex: 1,
@@ -105,7 +107,7 @@ const Complex = () => {
           key={image.title}
           style={{ width: image.width }}
           onClick={() => handleNavigate(image.category)} // استخدام handleNavigate عند النقر
-          >
+        >
           <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
           <ImageBackdrop className="MuiImageBackdrop-root" />
           <Image>

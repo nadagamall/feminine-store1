@@ -7,7 +7,6 @@ html, body, #root {
 
 header {
   width: 100%; /* تأكد من تمدد الهيدر */
-  background-color: #f8f9fa; /* ضع لون خلفية لرؤية تأثيره بوضوح */
 }
 
 #root {

@@ -8,7 +8,7 @@ import { addToCart } from '../stores/Cart';
 const Details = () => {
     const { slug } = useParams();
     const [Details, setDetails] = useState([]);
-    const [quantity, setQuantity] = useState (1);
+    const [quantity, setQuantity] = useState (0);
     const dispatch = useDispatch();
   
 
@@ -50,10 +50,10 @@ const Details = () => {
                 <h2 className='text-3xl text-center pt-4'> PRODUCT DETAIL</h2>
                 <div className='grid grid-cols-2 gap-5 mt-5'>
                 <div>
-                    <img src={Details.image} alt='' className='w-full'  />
+                    <img src={Details.image} alt='' className='w-full h-100'  />
                 </div>
                 <div className='flex flex-col gap-5'>
-                <h1 className='font-bold text-3xl'> {Details.name}</h1>
+                <h1 className='font-bold text-2xl'> {Details.name}</h1>
                     <p className='font-bold text-3xl'>
                         ${Details.price}
                     </p>
@@ -63,7 +63,7 @@ const Details = () => {
             <span className='bg-gray-200 border-radues-3 h-full w-10 font-bold text-xl rounded-xl flex justify-center items-center'>{quantity}</span>
             <button className='bg-gray-200 border-radues-3 h-full w-10 font-bold text-xl rounded-xl flex justify-center items-center'onClick={handleMinusQuantity}>-</button>
             </div>
-            <button className='bg-gray-300 border-radues-4 px-7 py-3 rounded-xl' onClick={handleAddToCart}>
+            <button className='bg-gray-300  border-radues-4 px-7 py-3 rounded-xl' onClick={handleAddToCart}>
                 Add To Cart
             </button>
                 </div>
