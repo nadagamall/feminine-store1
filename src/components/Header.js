@@ -61,7 +61,8 @@ const Header = () => {
           <img
             src={logo}
             alt="logo"
-            className="w-20 h-14 md:w-30 md:h-20 border-radius-5 "
+            className="w-20 h-14 md:w-30 md:h-20 border-radius-5 object-contain"
+
           />
         </div>
 
@@ -76,7 +77,7 @@ const Header = () => {
         </div>
 
         {/* الأيقونات على اليمين */}
-       <Box sx={{ position: 'absolute', top: 20, right: 7, p: 2 }}>
+       <Box sx={{ position: 'absolute', top: 10, right: 7, p: 2 }}>
   <div className="flex space-x-2">
     <IconButton onClick={toggleColorMode} >
       {themeMode === 'dark' ? <Brightness7 /> : <Brightness4 />}
@@ -165,16 +166,17 @@ const Header = () => {
 
     {/* أيقونة العربة */}
     <div
-  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-200 dark:bg-gray-600 flex justify-center items-center relative cursor-pointer"
+  className="w-9 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-200 dark:bg-gray-600 flex justify-center items-center relative cursor-pointer"
   onClick={handleOpenTabCart}
-    >
-      <img src={iconCart} alt="Cart" className="w-5 sm:w-6" />
-      {totalQuantity > 0 && (
-        <span className="absolute top-2/3 right-1/2 bg-red-500 text-white text-xs sm:text-sm w-4 h-4 sm:w-5 sm:h-5 rounded-full flex justify-center items-center">
-          {totalQuantity}
-        </span>
-      )}
-    </div>
+>
+  <img src={iconCart} alt="Cart" className="w-5 sm:w-6 object-contain" />
+  {totalQuantity > 0 && (
+    <span className="absolute top-2/3 right-1/2 bg-red-500 text-white text-xs sm:text-sm w-4 h-4 sm:w-5 sm:h-5 rounded-full flex justify-center items-center">
+      {totalQuantity}
+    </span>
+  )}
+</div>
+
   </div>
 </Box>
 

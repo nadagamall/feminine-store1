@@ -57,7 +57,7 @@ export const useMode = () => {
     localStorage.getItem("mode") ? localStorage.getItem("mode") : "light"
   );
 
-  // عند تغيير الوضع، نقوم بتخزينه في localStorage
+ 
   useEffect(() => {
     localStorage.setItem("mode", mode);
   }, [mode]);
