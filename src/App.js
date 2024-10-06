@@ -24,7 +24,7 @@ function App() {
               <Route index element={<Home />} />
               <Route path='/:slug' element={<Details />} />
               <Route path='/test' element={<Page1 />} />
-              <Route path="/products/:category" element={<NewArrival />} />
+              <Route path="/NewArrival" element={<NewArrival />} />
             </Route>
           </Routes>
         </BrowserRouter>

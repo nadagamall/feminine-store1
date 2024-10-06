@@ -9,8 +9,10 @@ import ch6 from './assets/pj-1.jpg'
 import ch7 from './assets/jen-1.jpg'
 import ch9 from './assets/t-n2.jpg'
 import ch10 from './assets/beatch-1.jpg'
-
-
+import ch11 from './assets/Your-paragraph-text-2.jpg';
+import ch12 from './assets/Untitled-design-53.png';
+import ch13 from './assets/20240827_125131_0000.png';
+import ch14 from './assets/20240829_115349_0000.png';
 export const Products =[
 
 {
@@ -103,5 +105,34 @@ export const Products =[
     description:'Cargo Denim Pants In Brick Brown',
     slug:'Cargo Denim Pants In Brick Brown',
 },
+{
+    id:11,
+    name:"Classic Oversized Trench Coat",
+    price:1248,
+    category: 'clothes',
+    image:ch14,
+    description:'Classic Oversized Trench Coat',
+    slug:'Classic Oversized Trench Coat',
+},
+{
+    id:12,
+    name:"Cropped Basic Vest In Black",
+    price:595,
+    category: 'clothes',
+    image:ch12,
+    description:'Cropped Basic Vest In Black',
+    slug:'Cropped Basic Vest In Black',
+},
+{
+    id:13,
+    name:"Not So Basic Blue Shirt",
+    price:748,
+    category: 'clothes',
+    image:ch13,
+    description:'Not So Basic Blue Shirt',
+    slug:'Not So Basic Blue Shirt',
+},
+
+
 
 ];

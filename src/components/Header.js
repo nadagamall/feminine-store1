@@ -71,7 +71,7 @@ const Header = () => {
           <Link to="/" className="font-semibold">
             Home
           </Link>
-          <Link to="/new-arrivals" className="font-semibold">
+          <Link to="/NewArrival" className="font-semibold">
             New Arrivals
           </Link>
         </div>
@@ -217,7 +217,7 @@ const Header = () => {
             <Link to="/" className="font-semibold">
               Home
             </Link>
-            <Link to="/new-arrivals" className="font-semibold">
+            <Link to="/NewArrival" className="font-semibold">
               New Arrivals
             </Link>
           </div>

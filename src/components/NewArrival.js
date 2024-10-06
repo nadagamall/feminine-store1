@@ -1,26 +1,29 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import { Products } from '../Products';
 
 const NewArrival = () => {
-  const { category } = useParams(); // الحصول على الفئة من URL
-  const filteredProducts = Products.filter((product) => product.category === category);
+  const filteredProducts = Products.filter((product) => product.category === 'clothes');
 
   return (
-    <div>  
-      <h1>{category} Products</h1>
-      <div className="product-grid">
-      {filteredProducts.length > 0 ?
-      ( filteredProducts.map((product) => (
-            <div key={product.id} className="product-item">
-              <h2>{product.name}</h2>
-              <p>{product.price} $</p>
-              <img src={product.image} alt={product.name} style={{ width: '200px', height: 'auto' }} />
+    <div className="p-5">  
+      <h1 className="text-2xl font-bold mb-4">New Arrival Clothes</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <div key={product.id} className="relative border p-4 rounded-lg shadow-md overflow-hidden">
+              <img 
+                src={product.image} 
+                alt={product.name} 
+                className="w-full h-80 object-cover mb-2 transition-transform duration-300 transform hover:scale-105" // زيادة الارتفاع هنا
+              />
+              <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</span>
+              <h2 className="text-lg font-semibold">{product.name}</h2>
+              <p className="text-gray-600">{product.price} $</p>
             </div>
-             ))
-            ) : (
-              <p>No products available in this category.</p>
-            )}
+          ))
+        ) : (
+          <p>No clothes available in the New Arrivals.</p>
+        )}
       </div>
     </div>
   );
