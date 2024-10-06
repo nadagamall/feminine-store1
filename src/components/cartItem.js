@@ -16,12 +16,11 @@ const CartItem = (props) => {
     }, [productId])
 
     const handleMinusQuantity = () => {
-            dispatch(changeQuantity({
-                productId: productId,
-                quantity: quantity - 1
-            }));
-        }
-    
+        dispatch(changeQuantity({
+            productId: productId,
+            quantity: quantity - 1
+        }));
+    }
 
     const handlePlusQuantity = () => {
         dispatch(changeQuantity({
@@ -29,25 +28,27 @@ const CartItem = (props) => {
             quantity: quantity + 1
         }));
     }
+
     if (!detail) return null;
 
-
     return (
-        <div>
-            <img src={detail.image} alt={detail.image} className='w-12' />
-            <h3 className=''>{detail.name}</h3>
-            <p>${detail.price * quantity}</p>
-           
-            <div className='w-20 flex justify-between gap-2 mb-2'>
-                <button className='bg-gray-200 rounded-full w-6 h-6 border-radues-3 '
-                    onClick={handleMinusQuantity}>
-                    -
-                </button>
-                <span className=''>{quantity}</span>
-                <button className='bg-gray-200 rounded-full w-6 h-6 border-radues-3'
-                    onClick={handlePlusQuantity} >
-                    +
-                </button>
+        <div className='flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6 w-full md:w-auto p-4 border-b'>
+            <img src={detail.image} alt={detail.name} className='w-12 h-12 md:w-16 md:h-16 object-cover' />
+            <div className='flex-1'>
+                <h3 className='text-sm md:text-lg font-semibold'>{detail.name}</h3>
+                <p className='text-sm md:text-md text-gray-500'>${detail.price * quantity}</p>
+                
+                <div className='flex items-center gap-2 mt-2'>
+                    <button className='bg-gray-200 rounded-full w-6 h-6 md:w-8 md:h-8 flex items-center justify-center'
+                        onClick={handleMinusQuantity}>
+                        -
+                    </button>
+                    <span className='text-sm md:text-lg'>{quantity}</span>
+                    <button className='bg-gray-200 rounded-full w-6 h-6 md:w-8 md:h-8 flex items-center justify-center'
+                        onClick={handlePlusQuantity}>
+                        +
+                    </button>
+                </div>
             </div>
         </div>
     );
